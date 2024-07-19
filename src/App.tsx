@@ -31,7 +31,6 @@ const App = () => {
   const removeSelect = () => {
     setSelected(false);
   };
-  const onSearch = {};
 
   return (
     <>
