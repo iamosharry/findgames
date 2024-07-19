@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../services/api-client";
-import { Genres } from "./useGenres";
-import { Results } from "../components/PlatformSelector";
+import { GameQuery } from "../App";
 
 interface InnerPlatform {
   id: number;
@@ -23,21 +22,18 @@ interface FetchedGames {
   results: ResultType[];
 }
 
-const useGame = (
-  selectedGenres: Genres | null,
-  selectedPlatform: Results | null
-) => {
+const useGame = (gameQuery: GameQuery) => {
   const handleGames = () =>
     apiClient
       .get<FetchedGames>("/games", {
         params: {
-          genres: selectedGenres?.id,
-          platforms: selectedPlatform?.id,
+          genres: gameQuery.genre?.id,
+          platforms: gameQuery.platform?.id,
         },
       })
       .then((res) => res.data.results);
   const { data, error, isLoading } = useQuery<ResultType[], Error>({
-    queryKey: ["games", selectedGenres?.id, selectedPlatform?.id, "posts"],
+    queryKey: ["games", gameQuery.genre?.id, gameQuery.platform?.id, "posts"],
     queryFn: handleGames,
   });
 

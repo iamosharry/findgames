@@ -7,12 +7,13 @@ import PlatformSelector, { Results } from "./components/PlatformSelector";
 import Sorting from "./components/Sorting";
 import BeamInput from "./components/BeamInput";
 
-const App = () => {
-  const [selectedGenres, setSelectedGenres] = useState<Genres | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<Results | null>(
-    null
-  );
+export interface GameQuery {
+  genre: Genres | null;
+  platform: Results | null;
+}
 
+const App = () => {
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
   const [selected, setSelected] = useState(() => {
     const saved = localStorage.getItem("selected");
     return saved !== null ? JSON.parse(saved) : false;
@@ -45,23 +46,21 @@ const App = () => {
       <div className={`md:flex py-10  ${selected && "bg-black text-white"}`}>
         <div className="hidden  md:block md:w-[20%] cursor-pointer  ">
           <GenreList
-            setSelectedGenres={(item) => setSelectedGenres(item)}
-            selectedGenres={selectedGenres}
+            setSelectedGenres={(genre) => setGameQuery({ ...gameQuery, genre })}
+            selectedGenres={gameQuery.genre}
           />
         </div>
         <div className=" w-full md:w-[85%]">
           <div className="flex">
             <PlatformSelector
-              setSelectedPlatform={setSelectedPlatform}
-              selectedPlatform={selectedPlatform}
+              setSelectedPlatform={(platform) =>
+                setGameQuery({ ...gameQuery, platform })
+              }
+              selectedPlatform={gameQuery.platform}
             />
             <Sorting />
           </div>
-          <GameGrid
-            selected={selected}
-            selectedGenres={selectedGenres}
-            selectedPlatform={selectedPlatform}
-          />
+          <GameGrid selected={selected} gameQuery={gameQuery} />
         </div>
       </div>
     </>

@@ -14,16 +14,15 @@ import { BsGlobe } from "react-icons/bs";
 import { IconType } from "react-icons";
 import Critic from "./Critic";
 import LoadingSkeleton from "./LoadingSkeleton";
-import { Genres } from "../hooks/useGenres";
-import { Results } from "./PlatformSelector";
+
 import getCroppedImages from "../services/image-url";
+import { GameQuery } from "../App";
 
 interface Props {
+  gameQuery: GameQuery;
   selected?: boolean;
-  selectedGenres: Genres | null;
-  selectedPlatform: Results | null;
 }
-const GameGrid = ({ selected, selectedGenres, selectedPlatform }: Props) => {
+const GameGrid = ({ gameQuery, selected }: Props) => {
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
     playstation: FaPlaystation,
@@ -35,7 +34,7 @@ const GameGrid = ({ selected, selectedGenres, selectedPlatform }: Props) => {
     ios: MdPhoneIphone,
     web: BsGlobe,
   };
-  const { data, error, isLoading } = useGame(selectedGenres, selectedPlatform);
+  const { data, error, isLoading } = useGame(gameQuery);
 
   // Determine the number of skeleton cards to display while loading
   const skeletonCards = new Array(12).fill(0);

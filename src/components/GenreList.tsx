@@ -5,7 +5,7 @@ interface Props {
   setSelectedGenres: (item: Genres) => void;
   selectedGenres: Genres | null;
 }
-const GenreList = ({ setSelectedGenres, selectedGenres }: Props) => {
+const GenreList = ({ setSelectedGenres }: Props) => {
   const { data, error, isLoading } = useGenres();
   if (error) {
     return null;
@@ -25,11 +25,7 @@ const GenreList = ({ setSelectedGenres, selectedGenres }: Props) => {
               alt=""
             />
             <button
-              className={
-                item.id === selectedGenres?.id
-                  ? "font-bold text-white-600"
-                  : "font-normal text-gray-500"
-              }
+              className="font-medium"
               onClick={() => setSelectedGenres(item)}
             >
               {item.name}

@@ -27,6 +27,9 @@ const BeamInput = () => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        if (inputRef.current) {
+          console.log(inputRef.current?.value);
+        }
       }}
       onClick={() => {
         if (inputRef.current) {
@@ -37,7 +40,6 @@ const BeamInput = () => {
     >
       <input
         ref={inputRef}
-        type="email"
         placeholder="Search games..."
         className="w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0"
       />
