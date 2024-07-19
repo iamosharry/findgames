@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.cover {
+  position: absolute;
+  width: 40%;
+  height: 100%;
+
+  left: 25px;
+  border-radius: 20px;
+}
+
+.cover.active {
+  transform: translateX(100px);
+  transition: all 0.4s;
+}
+
+.cover.inactive {
+  transform: translateX(0px);
+  transition: all 0.4s;
+}
