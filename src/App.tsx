@@ -21,6 +21,7 @@ const App = () => {
   });
 
   // Save the state to local storage whenever it changes
+
   useEffect(() => {
     localStorage.setItem("selected", JSON.stringify(selected));
   }, [selected]);
