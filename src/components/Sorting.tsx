@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import Option from "./Option";
+
 import { iconVariants, wrapperVariants } from ".";
 import usePlatform from "../hooks/usePlatform";
 import Sort from "./Sort";
@@ -9,7 +9,7 @@ import Sort from "./Sort";
 const Sorting = () => {
   const [open, setOpen] = useState(false);
 
-  const { data, error } = usePlatform();
+  const { error } = usePlatform();
   if (error) {
     return null;
   }
