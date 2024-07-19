@@ -10,7 +10,7 @@ interface Props {
   title: string;
   st: st;
 }
-const Sort = ({ setOpen, title, st }: Props) => {
+const Sort = ({ setOpen, st }: Props) => {
   return (
     <motion.li
       variants={itemVariants}
