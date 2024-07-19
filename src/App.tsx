@@ -10,6 +10,7 @@ import BeamInput from "./components/BeamInput";
 export interface GameQuery {
   genre: Genres | null;
   platform: Results | null;
+  searchText: string;
 }
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
   const removeSelect = () => {
     setSelected(false);
   };
+  const onSearch = {};
 
   return (
     <>
@@ -38,10 +40,13 @@ const App = () => {
           selected={selected}
           handleSelect={handleSelect}
           removeSelect={removeSelect}
+          onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </div>
       <div className="lg:hidden h-full items-center justify-center  px-4 w-full bg-black">
-        <BeamInput />
+        <BeamInput
+          onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
+        />
       </div>
       <div className={`md:flex py-10  ${selected && "bg-black text-white"}`}>
         <div className="hidden  md:block md:w-[20%] cursor-pointer  ">

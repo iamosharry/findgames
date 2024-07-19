@@ -6,9 +6,10 @@ interface Props {
   selected: boolean;
   handleSelect: () => void;
   removeSelect: () => void;
+  onSearch: (searchText: string) => void;
 }
 
-const Navbar = ({ selected, handleSelect, removeSelect }: Props) => {
+const Navbar = ({ selected, handleSelect, removeSelect, onSearch }: Props) => {
   return (
     <>
       <div className="flex items-center justify-between  px-2 py-5   lg:px-7 ">
@@ -17,7 +18,7 @@ const Navbar = ({ selected, handleSelect, removeSelect }: Props) => {
           <h1>NavBar</h1>
         </div>
         <div className="hidden lg:flex h-full items-center justify-center  px-4 w-[70%]">
-          <BeamInput />
+          <BeamInput onSearch={onSearch} />
         </div>
         <div className="">
           <SliderToggle

@@ -8,7 +8,10 @@ import { useEffect, useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FiArrowRight } from "react-icons/fi";
 
-const BeamInput = () => {
+interface Props {
+  onSearch: (searchText: string) => void;
+}
+const BeamInput = ({ onSearch }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const turn = useMotionValue(0);
@@ -28,7 +31,7 @@ const BeamInput = () => {
       onSubmit={(e) => {
         e.preventDefault();
         if (inputRef.current) {
-          console.log(inputRef.current?.value);
+          onSearch(inputRef.current?.value);
         }
       }}
       onClick={() => {

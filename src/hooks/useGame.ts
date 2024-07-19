@@ -29,11 +29,18 @@ const useGame = (gameQuery: GameQuery) => {
         params: {
           genres: gameQuery.genre?.id,
           platforms: gameQuery.platform?.id,
+          search: gameQuery.searchText,
         },
       })
       .then((res) => res.data.results);
   const { data, error, isLoading } = useQuery<ResultType[], Error>({
-    queryKey: ["games", gameQuery.genre?.id, gameQuery.platform?.id, "posts"],
+    queryKey: [
+      "games",
+      gameQuery.genre?.id,
+      gameQuery.platform?.id,
+      gameQuery.searchText,
+      "posts",
+    ],
     queryFn: handleGames,
   });
 
