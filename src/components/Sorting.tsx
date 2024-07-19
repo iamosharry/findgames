@@ -9,6 +9,15 @@ import Sort from "./Sort";
 const Sorting = () => {
   const [open, setOpen] = useState(false);
 
+  const sortOrder = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release data" },
+    { value: "-metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average rating" },
+  ];
+
   const { error } = usePlatform();
   if (error) {
     return null;
@@ -36,13 +45,14 @@ const Sorting = () => {
             style={{ originY: "top", translateX: "-50%" }}
             className="flex flex-col gap-2 p-2  rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
           >
-            <Sort setOpen={setOpen} title="Relevance" />
-            <Sort setOpen={setOpen} title="Date Added" />
-            <Sort setOpen={setOpen} title="Age" />
-            <Sort setOpen={setOpen} title="Release Date" />
-            <Sort setOpen={setOpen} title="Name" />
-            <Sort setOpen={setOpen} title="Popularity" />
-            <Sort setOpen={setOpen} title="Average rating" />
+            {sortOrder.map((st) => (
+              <Sort
+                st={st}
+                key={st.value}
+                setOpen={setOpen}
+                title={st.label}
+              ></Sort>
+            ))}
 
             {/* <Option setOpen={setOpen} Icon={FiPlusSquare} text="Duplicate" />
           <Option setOpen={setOpen} Icon={FiShare} text="Share" />
