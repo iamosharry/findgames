@@ -4,6 +4,7 @@ import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import { Genres } from "./hooks/useGenres";
 import PlatformSelector, { Results } from "./components/PlatformSelector";
+import Sorting from "./components/Sorting";
 const App = () => {
   const [selectedGenres, setSelectedGenres] = useState<Genres | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<Results | null>(
@@ -46,10 +47,13 @@ const App = () => {
           />
         </div>
         <div className=" w-full md:w-[85%]">
-          <PlatformSelector
-            setSelectedPlatform={setSelectedPlatform}
-            selectedPlatform={selectedPlatform}
-          />
+          <div className="flex">
+            <PlatformSelector
+              setSelectedPlatform={setSelectedPlatform}
+              selectedPlatform={selectedPlatform}
+            />
+            <Sorting />
+          </div>
           <GameGrid
             selected={selected}
             selectedGenres={selectedGenres}
