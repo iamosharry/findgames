@@ -36,11 +36,11 @@ const App = () => {
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </div>
-<<<<<<<<< Temporary merge branch 1
-      <div className="lg:hidden h-full items-center justify-center px-4 w-full bg-black">
-=========
-      <div className="lg:hidden h-full items-center justify-center px-4 w-full bg-transparent">
->>>>>>>>> Temporary merge branch 2
+      <div
+        className={`lg:hidden h-full items-center justify-center  px-4 w-full ${
+          selected === true ? "bg-black" : "bg-white"
+        } `}
+      >
         <BeamInput
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
