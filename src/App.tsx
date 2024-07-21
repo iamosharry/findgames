@@ -6,6 +6,7 @@ import { Genres } from "./hooks/useGenres";
 import PlatformSelector, { Results } from "./components/PlatformSelector";
 import Sorting from "./components/Sorting";
 import BeamInput from "./components/BeamInput";
+import selectContext from "./state-management/contexts/selectedContext";
 
 export interface GameQuery {
   genre: Genres | null;
@@ -16,46 +17,38 @@ export interface GameQuery {
 const App = () => {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
   const [selected, setSelected] = useState(() => {
-    const saved = localStorage.getItem("selected");
-    return saved !== null ? JSON.parse(saved) : false;
+    // Retrieve initial value from local storage or default to false
+    const storedSelected = localStorage.getItem("selected");
+    return storedSelected ? JSON.parse(storedSelected) : false;
   });
 
-  // Save the state to local storage whenever it changes
-
   useEffect(() => {
+    // Save selected state to local storage whenever it changes
     localStorage.setItem("selected", JSON.stringify(selected));
   }, [selected]);
-  const handleSelect = () => {
-    setSelected(true);
-  };
 
-  const removeSelect = () => {
-    setSelected(false);
-  };
+  console.log(selected);
 
   return (
-    <>
+    <selectContext.Provider value={{ selected, setSelected }}>
       <div className={` ${selected && "bg-black text-white "}`}>
         <Navbar
-          selected={selected}
-          handleSelect={handleSelect}
-          removeSelect={removeSelect}
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </div>
-      <div className="lg:hidden h-full items-center justify-center  px-4 w-full bg-black">
+      <div className="lg:hidden h-full items-center justify-center px-4 w-full bg-black">
         <BeamInput
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </div>
-      <div className={`md:flex py-10  ${selected && "bg-black text-white"}`}>
-        <div className="hidden  md:block md:w-[20%] cursor-pointer  ">
+      <div className={`md:flex py-10 ${selected && "bg-black text-white"}`}>
+        <div className="hidden md:block md:w-[20%] cursor-pointer">
           <GenreList
             setSelectedGenres={(genre) => setGameQuery({ ...gameQuery, genre })}
             selectedGenres={gameQuery.genre}
           />
         </div>
-        <div className=" w-full md:w-[85%]">
+        <div className="w-full md:w-[85%]">
           <div className="flex">
             <PlatformSelector
               setSelectedPlatform={(platform) =>
@@ -68,7 +61,7 @@ const App = () => {
           <GameGrid selected={selected} gameQuery={gameQuery} />
         </div>
       </div>
-    </>
+    </selectContext.Provider>
   );
 };
 
