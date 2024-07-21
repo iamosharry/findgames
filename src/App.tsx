@@ -36,7 +36,11 @@ const App = () => {
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
       </div>
-      <div className="lg:hidden h-full items-center justify-center px-4 w-full bg-transparent">
+      <div
+        className={`lg:hidden h-full items-center justify-center  px-4 w-full ${
+          selected === true ? "bg-black" : "bg-white"
+        } `}
+      >
         <BeamInput
           onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
         />
