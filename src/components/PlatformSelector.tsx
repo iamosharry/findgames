@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import Option from "./Option";
 import { iconVariants, wrapperVariants } from ".";
 import usePlatform from "../hooks/usePlatform";
+import selectContext from "../state-management/contexts/selectedContext";
 
 export interface PlatformType {
   id: number;
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const PlatformSelector = ({ setSelectedPlatform, selectedPlatform }: Props) => {
+  const { selected } = useContext(selectContext);
   const [open, setOpen] = useState(false);
 
   const { data, error } = usePlatform();
@@ -37,9 +39,15 @@ const PlatformSelector = ({ setSelectedPlatform, selectedPlatform }: Props) => {
         >
           <button
             onClick={() => setOpen((pv) => !pv)}
-            className="flex items-center gap-2 px-5 py-2   rounded-md text-indigo-50 bg-transparent border hover:bg-gray-900 transition-colors "
+            className={`flex items-center gap-2 px-5 py-2 rounded-md  bg-transparent border  transition-colors  font-semibold  hover:text-gray-50 hover:bg-gray-800 ${
+              selected === true ? "text-white" : "text-gray-700"
+            }`}
           >
-            <span className="font-medium text-sm ">
+            <span
+              className={`font-medium text-sm  
+               
+                `}
+            >
               {selectedPlatform?.name || "Platforms"}
             </span>
             <motion.span variants={iconVariants}>

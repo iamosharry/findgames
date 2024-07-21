@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
 import { iconVariants, wrapperVariants } from ".";
 import usePlatform from "../hooks/usePlatform";
 import Sort from "./Sort";
+import selectContext from "../state-management/contexts/selectedContext";
 
 const Sorting = () => {
+  const { selected } = useContext(selectContext);
   const [open, setOpen] = useState(false);
 
   const sortOrder = [
@@ -31,7 +33,9 @@ const Sorting = () => {
         >
           <button
             onClick={() => setOpen((pv) => !pv)}
-            className="flex items-center gap-2 px-5 py-2   rounded-md text-indigo-50 bg-transparent border hover:bg-gray-900 transition-colors "
+            className={`flex items-center gap-2 px-5 py-2   rounded-md  bg-transparent border hover:bg-gray-900 hover:text-white ${
+              selected === true ? "text-gray-100" : "text-gray-700"
+            } transition-colors `}
           >
             <span className="font-medium text-sm ">Order by: Relevance</span>
             <motion.span variants={iconVariants}>

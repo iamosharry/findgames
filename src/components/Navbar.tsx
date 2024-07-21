@@ -3,13 +3,10 @@ import BeamInput from "./BeamInput";
 import SliderToggle from "./SliderToggle";
 
 interface Props {
-  selected: boolean;
-  handleSelect: () => void;
-  removeSelect: () => void;
   onSearch: (searchText: string) => void;
 }
 
-const Navbar = ({ selected, handleSelect, removeSelect, onSearch }: Props) => {
+const Navbar = ({ onSearch }: Props) => {
   return (
     <>
       <div className="flex items-center justify-between  px-2 py-5   lg:px-7 ">
@@ -21,11 +18,7 @@ const Navbar = ({ selected, handleSelect, removeSelect, onSearch }: Props) => {
           <BeamInput onSearch={onSearch} />
         </div>
         <div className="">
-          <SliderToggle
-            selected={selected}
-            handleSelect={handleSelect}
-            removeSelect={removeSelect}
-          />
+          <SliderToggle />
         </div>
       </div>
     </>

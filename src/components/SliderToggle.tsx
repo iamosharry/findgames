@@ -1,13 +1,11 @@
 import { motion } from "framer-motion";
 import { FiMoon, FiSun } from "react-icons/fi";
+import { useContext } from "react";
 
-interface Props {
-  handleSelect: () => void;
-  removeSelect: () => void;
-  selected: boolean;
-}
-const SliderToggle = ({ handleSelect, selected, removeSelect }: Props) => {
-  selected;
+import selectContext from "../state-management/contexts/selectedContext";
+
+const SliderToggle = () => {
+  const { selected, setSelected } = useContext(selectContext);
   return (
     <div className="relative  flex w-fit items-center rounded-full space-x-10 py-2 ">
       <div
@@ -16,21 +14,15 @@ const SliderToggle = ({ handleSelect, selected, removeSelect }: Props) => {
         } `}
       ></div>
       <button
-        onClick={removeSelect}
-        className={`flex space-x-2 items-center ${selected && "text-white"}`}
+        className={`flex space-x-2 items-center text-white`}
+        onClick={() => setSelected(false)}
       >
-        <FiSun
-          className={`relative z-10 text-lg md:text-sm ${
-            !selected && "text-white"
-          }`}
-        />
-        <span className={`relative z-10 ${!selected && "text-white"}`}>
-          Light
-        </span>
+        <FiSun className={`relative z-10 text-lg md:text-sm `} />
+        <span className={`relative z-10 `}>Light</span>
       </button>
       <button
-        onClick={handleSelect}
-        className={`flex space-x-2 items-center ${selected && "text-white"}`}
+        className={`flex space-x-2 items-center `}
+        onClick={() => setSelected(true)}
       >
         <FiMoon className="relative z-10 text-lg md:text-sm" />
         <span className="relative z-10">Dark</span>

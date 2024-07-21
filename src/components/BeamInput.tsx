@@ -4,15 +4,17 @@ import {
   useMotionTemplate,
   useMotionValue,
 } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FiArrowRight } from "react-icons/fi";
+import selectContext from "../state-management/contexts/selectedContext";
 
 interface Props {
   onSearch: (searchText: string) => void;
 }
 const BeamInput = ({ onSearch }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { selected } = useContext(selectContext);
 
   const turn = useMotionValue(0);
 
@@ -24,7 +26,7 @@ const BeamInput = ({ onSearch }: Props) => {
     });
   }, []);
 
-  const backgroundImage = useMotionTemplate`conic-gradient(from ${turn}turn, #a78bfa00 75%, #a78bfa 100%)`;
+  const backgroundImage = useMotionTemplate`conic-gradient(from ${turn}turn, #a78bfa00 75%, indigo 100%)`;
 
   return (
     <form
@@ -39,12 +41,17 @@ const BeamInput = ({ onSearch }: Props) => {
           inputRef.current.focus();
         }
       }}
-      className="relative flex w-full  items-center gap-2 rounded-full border border-white/20  py-1.5 pl-6 pr-1.5"
+      className="relative flex w-full  items-center gap-2 rounded-full border border-gray-300   py-1.5 pl-6 pr-1.5"
     >
+      {/* border-white/20 */}
       <input
         ref={inputRef}
         placeholder="Search games..."
-        className="w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0"
+        className={`w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0 ${
+          selected === false
+            ? "text-black placeholder-black/80 font-semibold"
+            : "text-white placeholder-white/80"
+        }`}
       />
 
       <button
