@@ -47,7 +47,7 @@ const BeamInput = ({ onSearch }: Props) => {
       <input
         ref={inputRef}
         placeholder="Search games..."
-        className={`w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0 ${
+        className={`w-full bg-transparent text-sm  focus:outline-0 ${
           selected === false
             ? "text-black placeholder-black/80 font-semibold"
             : "text-white placeholder-white/80"
